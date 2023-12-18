@@ -1,0 +1,29 @@
+- model: User
+  data:
+    - id: 1
+      name: "John Doe"
+      email: "john.doe@example.com"
+      hashed_password: "hashed_pw_1"
+      service_type: "Cook"
+
+
+    - id: 2
+      name: "Jane Doe"
+      email: "jane.doe@example.com"
+      hashed_password: "hashed_pw_2"
+      service_type: "Waiter"
+
+
+    # Add more users as needed...
+
+- model: Permission
+  data:
+    - id: 1
+      user_id: 1
+      permission_type: "Read"
+
+    - id: 2
+      user_id: 2
+      permission_type: "ManageUsers"
+
+    # Add more permissions as needed...
