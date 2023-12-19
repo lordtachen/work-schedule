@@ -2,7 +2,8 @@ import yaml
 import pathlib
 from sqlalchemy.orm import Session
 from app.db.session import SessionLocal, Base, engine
-from app.models.user import User, Permission
+from app.models.user import User
+from app.models.permission import Permission
 
 
 def load_data(session: Session, data: list):
@@ -15,14 +16,9 @@ def load_data(session: Session, data: list):
             session.add(item)
 
 
-if __name__ == "__main__":
-    yaml_file_path = "/home/ctw00914/external/work-schedule/tests/data"  # Update with the path to your YAML file
-
-    # Create tables in the database
-    Base.metadata.create_all(bind=engine)
+def load_data_from_yaml(session: Session, data_dir: pathlib.Path):
     try:
-        session = SessionLocal()
-        for f in pathlib.Path(yaml_file_path).glob("**/*.yaml"):
+        for f in pathlib.Path(data_dir).glob("**/*.yaml"):
             load_data(session, yaml.safe_load(f.read_text()))
         session.commit()
     except Exception as ex:
@@ -30,3 +26,10 @@ if __name__ == "__main__":
         session.rollback()
     finally:
         session.close()
+
+if __name__ == "__main__":
+    yaml_file_path = "/home/ctw00914/external/work-schedule/tests/data"  # Update with the path to your YAML file
+
+    # Create tables in the database
+    Base.metadata.create_all(bind=engine)
+    load_data_from_yaml(SessionLocal(), pathlib.Path(yaml_file_path))

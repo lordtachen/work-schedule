@@ -3,71 +3,52 @@ from fastapi import APIRouter, Depends, status, HTTPException
 from fastapi.params import Query
 from sqlalchemy.orm import Session
 from app.db.session import get_db
-from app.db.user import (
-    get_user_by_id,
-    get_user_by_search_param,
-    create_user,
-    update_user,
-    delete_user,
-)
-
-from pydantic import BaseModel, EmailStr
+from app.db import user as db_user
+from app.validation import UserInput, UserResponse, UserUpdateInput
 
 router = APIRouter()
 
 
-class UserResponse(BaseModel):
-    id: int
-    name: str
-    email: EmailStr
-
-
-class UserInput(UserResponse):
-    id: int
-    name: str
-    email: EmailStr
-    hashed_password: str
-
-
 @router.post("", status_code=status.HTTP_201_CREATED)
 def _create_user(
-    user: UserInput = Depends(), db: Session = Depends(get_db)
+        user: UserInput = Depends(), db: Session = Depends(get_db)
 ) -> UserResponse:
-    return UserResponse(**create_user(db, user.model_dump()).__dict__)
+    return UserResponse(**db_user.create(db, user.model_dump()).__dict__)
 
 
 @router.get("")
-def _get_user_by_search_params(
-    db: Session = Depends(get_db),
-    name: Optional[str] = Query(
-        None, title="name parameter", description="Search by name"
-    ),
-    email: Optional[str] = Query(
-        None, title="Email parameter", description="Search by email"
-    ),
+def _get_by_search_params(
+        db: Session = Depends(get_db),
+        name: Optional[str] = Query(
+            None, title="name parameter", description="Search by name"
+        ),
+        email: Optional[str] = Query(
+            None, title="Email parameter", description="Search by email"
+        ),
 ) -> List[UserResponse]:
-    return get_user_by_search_param(db, name=name, email=email)
+    return db_user.get_by_search_param(db, name=name, email=email)
 
 
 @router.put("/{user_id}", response_model=UserResponse)
-def _update_user_handler(
-    user_id: int, user_update: UserInput, db: Session = Depends(get_db)
+def _update_handler(
+        user_id: int, user_update: UserUpdateInput, db: Session = Depends(get_db)
 ):
-    return update_user(db, user_id, user_update.model_dump())
+    return db_user.update(db, user_id, user_update.model_dump())
 
 
-@router.delete("/{user_id}", response_model=UserResponse)
-def _delete_user_handler(user_id: int, db: Session = Depends(get_db)):
-    user = delete_user(db, user_id)
-    if not user:
+@router.delete("/{user_id}", status_code=status.HTTP_200_OK)
+def _delete_user_handler(user_id: int, db: Session = Depends(get_db)) -> None:
+    cur_user = db_user.delete(db, user_id)
+    if not cur_user:
         raise HTTPException(status_code=404, detail="User not found")
-    return delete_user(db, user_id)
+    return
+
 
 @router.get("/{user_id}", response_model=UserResponse)
 def _get_user(
-    user_id: int, db: Session = Depends(get_db)
+        user_id: int, db: Session = Depends(get_db)
 ):
-    user = get_user_by_id(db,user_id)
-    if not user:
+    cur_user = db_user.get_by_id(db, user_id)
+    if not db_user:
         raise HTTPException(status_code=404, detail="User not found")
-    return UserResponse( **user.__dict__)
+    return UserResponse(**cur_user.__dict__)
