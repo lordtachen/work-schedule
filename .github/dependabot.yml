@@ -10,3 +10,8 @@ updates:
    directory: "/"
    schedule:
      interval: weekly
+# Add poetry to package ecosystems
+ - package-ecosystem: "poetry"
+   directory: "/"
+   schedule:
+     interval: weekly
