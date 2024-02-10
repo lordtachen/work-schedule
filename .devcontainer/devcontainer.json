@@ -11,7 +11,8 @@
 		"vscode": {
 			"extensions": [
 				"GitHub.copilot-chat",
-				"GitHub.copilot"
+				"GitHub.copilot",
+				"Postman.postman-for-vscode"
 			]
 		}
 	},
@@ -20,7 +21,12 @@
 	// "features": {},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [8000]
+	"forwardPorts": [8000],
+    "postCreateCommand": [
+		"poetry install",
+		"poetry shell",
+		"uvicorn main:app --reload"
+	]
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "pip3 install --user -r requirements.txt",
