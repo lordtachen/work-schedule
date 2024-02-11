@@ -1,5 +1,5 @@
 from typing import List, Optional
-from fastapi import APIRouter, Depends, status, HTTPException
+from fastapi import APIRouter, Depends, status, HTTPException,Body
 from fastapi.params import Query
 from sqlalchemy.orm import Session
 from app.db.session import get_db
@@ -11,7 +11,7 @@ router = APIRouter()
 
 @router.post("", status_code=status.HTTP_201_CREATED)
 def _create_user(
-        user: UserInput = Depends(), db: Session = Depends(get_db)
+        user: UserInput = Body(), db: Session = Depends(get_db)
 ) -> UserResponse:
     return UserResponse(**db_user.create(db, user.model_dump()).__dict__)
 
