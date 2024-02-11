@@ -10,9 +10,11 @@ app.include_router(user.router, prefix="/users", tags=["users"])
 app.include_router(permission.router, prefix="/permissions", tags=["permissions"])
 
 # Create tables in the database
-@app.on_startup
 async def startup_event():
     Base.metadata.create_all(bind=engine)
+
+app.add_event_handler("startup", startup_event)
+
 
 
 # Example endpoint to check if the API is running
