@@ -27,6 +27,7 @@ def load_data_from_yaml(session: Session, data_dir: pathlib.Path):
     finally:
         session.close()
 
+
 if __name__ == "__main__":
     yaml_file_path = "/home/ctw00914/external/work-schedule/tests/data"  # Update with the path to your YAML file
 

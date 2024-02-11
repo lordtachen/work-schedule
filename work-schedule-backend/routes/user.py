@@ -47,6 +47,6 @@ def _delete_user_handler(user_id: int, db: Session = Depends(get_db)) -> None:
 @router.get("/{user_id}", response_model=UserResponse)
 def _get_user(user_id: int, db: Session = Depends(get_db)):
     cur_user = db_user.get_by_id(db, user_id)
-    if not cur_user:
+    if not db_user:
         raise HTTPException(status_code=404, detail="User not found")
     return UserResponse(**cur_user.__dict__)
