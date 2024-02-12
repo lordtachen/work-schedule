@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Optional, Sequence
 
 from fastapi import APIRouter, Body, Depends, HTTPException, status
 from fastapi.params import Query
@@ -31,7 +31,7 @@ def _get_by_search_params(
     email: Optional[str] = Query(
         None, title="Email parameter", description="Search by email"
     ),
-) -> List[UserResponse]:
+) -> Sequence[UserResponse]:
     return db_user.get_by_search_param(db, name=name, email=email)
 
 

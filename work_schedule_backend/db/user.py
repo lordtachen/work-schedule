@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Optional, Sequence
 
 from sqlalchemy.orm import Session
 
@@ -10,7 +10,7 @@ def get_by_id(db: Session, user_id: int) -> Optional[User]:
     return db.query(User).filter(User.id == user_id).first()
 
 
-def get_by_search_param(db: Session, **filters) -> List[UserResponse]:
+def get_by_search_param(db: Session, **filters) -> Sequence[UserResponse]:
     filter_conditions = [
         getattr(User, k).ilike(f"%{v}%") for k, v in filters.items() if v
     ]
