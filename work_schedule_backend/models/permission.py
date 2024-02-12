@@ -1,8 +1,10 @@
-from pydantic import BaseModel
-from sqlalchemy import Column, Integer, Enum, ForeignKey, UniqueConstraint
-from sqlalchemy.orm import relationship
-from app.db.session import Base
 import enum
+
+from pydantic import BaseModel
+from sqlalchemy import Column, Enum, ForeignKey, Integer, UniqueConstraint
+from sqlalchemy.orm import relationship
+
+from work_schedule_backend.db.session import Base
 
 
 class PermissionType(enum.Enum):

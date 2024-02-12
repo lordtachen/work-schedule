@@ -1,14 +1,16 @@
 from typing import List, Optional
 
 from sqlalchemy.orm import Session
-from app.models import User
+
+from work_schedule_backend.models.user import User
+from work_schedule_backend.validation.user import UserResponse
 
 
 def get_by_id(db: Session, user_id: int) -> Optional[User]:
     return db.query(User).filter(User.id == user_id).first()
 
 
-def get_by_search_param(db: Session, **filters) -> List[User]:
+def get_by_search_param(db: Session, **filters) -> List[UserResponse]:
     filter_conditions = [
         getattr(User, k).ilike(f"%{v}%") for k, v in filters.items() if v
     ]

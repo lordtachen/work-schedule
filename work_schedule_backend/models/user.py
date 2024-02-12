@@ -1,7 +1,9 @@
-from sqlalchemy import Column, Integer, String, Enum
-from sqlalchemy.orm import relationship
-from app.db.session import Base
 import enum
+
+from sqlalchemy import Column, Enum, Integer, String
+from sqlalchemy.orm import relationship
+
+from work_schedule_backend.db.session import Base
 
 
 class ServiceType(enum.Enum):

@@ -1,10 +1,16 @@
 from typing import List, Optional
-from fastapi import APIRouter, Depends, status, HTTPException, Body
+
+from fastapi import APIRouter, Body, Depends, HTTPException, status
 from fastapi.params import Query
 from sqlalchemy.orm import Session
-from app.db.session import get_db
-from app.db import user as db_user
-from app.validation import UserInput, UserResponse, UserUpdateInput
+
+from work_schedule_backend.db import user as db_user
+from work_schedule_backend.db.session import get_db
+from work_schedule_backend.validation.user import (
+    UserInput,
+    UserResponse,
+    UserUpdateInput,
+)
 
 router = APIRouter()
 
@@ -47,6 +53,6 @@ def _delete_user_handler(user_id: int, db: Session = Depends(get_db)) -> None:
 @router.get("/{user_id}", response_model=UserResponse)
 def _get_user(user_id: int, db: Session = Depends(get_db)):
     cur_user = db_user.get_by_id(db, user_id)
-    if not db_user:
+    if not cur_user:
         raise HTTPException(status_code=404, detail="User not found")
     return UserResponse(**cur_user.__dict__)

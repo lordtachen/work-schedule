@@ -1,7 +1,8 @@
 from typing import Optional
 
-from pydantic import EmailStr, BaseModel
-from app.models.user import ServiceType
+from pydantic import BaseModel, EmailStr
+
+from work_schedule_backend.models.user import ServiceType
 
 
 class UserResponse(BaseModel):
