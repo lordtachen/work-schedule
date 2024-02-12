@@ -1,0 +1,22 @@
+name: pre-commit
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4.1.1
+    - uses: actions/setup-python@v5.0.0
+      with:
+        python-version: 3.12
+    - name: Install and configure Poetry
+      uses: snok/install-poetry@v1.3.4
+    - name: Install project dependencies
+      run: poetry install --with dev
+    - name: Run pre-commit
+      run: poetry run pre-commit run --all-files
