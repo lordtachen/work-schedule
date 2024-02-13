@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from work_schedule_backend.models.permission import Permission
+from work_schedule_backend.db.models import Permission
 
 
 def create(db: Session, user_id: int, permission_type: str) -> Permission:

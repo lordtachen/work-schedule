@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 
-from work_schedule_backend.db.session import get_db
-from work_schedule_backend.models.permission import PermissionInput
+from work_schedule_backend.data_structures.permission import PermissionInput
+from work_schedule_backend.db.core import get_db
 
 router = APIRouter()
 

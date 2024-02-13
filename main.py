@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from work_schedule_backend.db.session import Base, engine
+from work_schedule_backend.db.core import Base, engine
 from work_schedule_backend.routes import permission, user
 
 app = FastAPI()

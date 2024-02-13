@@ -4,7 +4,7 @@ from sqlalchemy import StaticPool, create_engine
 from sqlalchemy.orm import sessionmaker
 
 from main import app
-from work_schedule_backend.db.session import Base, get_db
+from work_schedule_backend.db.core import Base, get_db
 
 # Setup the in-memory SQLite database for testing
 DATABASE_URL = "sqlite:///:memory:"
