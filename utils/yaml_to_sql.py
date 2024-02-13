@@ -4,8 +4,7 @@ from typing import Any, Sequence
 import yaml
 from sqlalchemy.orm import Session
 
-from work_schedule_backend.models.permission import Permission  # noqa: F401
-from work_schedule_backend.models.user import User  # noqa: F401
+from work_schedule_backend.db.models import *  # noqa: F401, F403
 
 
 def load_data(session: Session, data: Sequence[dict[str, Any]]):

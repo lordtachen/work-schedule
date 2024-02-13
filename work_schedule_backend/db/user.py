@@ -2,8 +2,8 @@ from typing import Optional, Sequence
 
 from sqlalchemy.orm import Session
 
-from work_schedule_backend.models.user import User
-from work_schedule_backend.validation.user import UserResponse
+from work_schedule_backend.data_structures.user import UserResponse
+from work_schedule_backend.db.models import User
 
 
 def get_by_id(db: Session, user_id: int) -> Optional[User]:

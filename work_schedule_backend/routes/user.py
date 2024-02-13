@@ -4,13 +4,13 @@ from fastapi import APIRouter, Body, Depends, HTTPException, status
 from fastapi.params import Query
 from sqlalchemy.orm import Session
 
-from work_schedule_backend.db import user as db_user
-from work_schedule_backend.db.session import get_db
-from work_schedule_backend.validation.user import (
+from work_schedule_backend.data_structures.user import (
     UserInput,
     UserResponse,
     UserUpdateInput,
 )
+from work_schedule_backend.db import user as db_user
+from work_schedule_backend.db.core import get_db
 
 router = APIRouter()
 

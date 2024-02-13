@@ -1,8 +1,14 @@
+import enum
 from typing import Optional
 
 from pydantic import BaseModel, EmailStr
 
-from work_schedule_backend.models.user import ServiceType
+
+class ServiceType(enum.Enum):
+    Cook = "Cook"
+    Waiter = "Waiter"
+    Cleaning = "Cleaning"
+    NoService = "NoService"
 
 
 class UserResponse(BaseModel):
