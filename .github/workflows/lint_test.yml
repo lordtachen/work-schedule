@@ -24,10 +24,16 @@ jobs:
       run: SKIP=pytest poetry run pre-commit run --all-files
 
     - name: Run tests
-      run: poetry run pytest --junitxml=pytest.xml | tee pytest-coverage.txt
+      run: poetry run pytest --cov-report=html --junitxml=pytest.xml | tee pytest-coverage.txt
 
     - name: Pytest coverage comment
       uses: MishaKav/pytest-coverage-comment@v1.1.51
       with:
         pytest-coverage-path: ./pytest-coverage.txt
         junitxml-path: ./pytest.xml
+
+    - name: HTML dir to GitHub Pages
+      uses: uibcdf/action-html-dir-to-gh-pages@1.0.0
+      with:
+        branch: ${{ github.head.ref }}
+        html_dir: htmlcov
