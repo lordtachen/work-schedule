@@ -22,11 +22,17 @@ pytest = "^8.0.0"
 pre-commit = "^3.6.1"
 ruff = "^0.2.1"
 isort = "^5.13.2"
+pytest-cov = "^4.1.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
+[toolpytest.cov]
+fail_under = 80
+
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
+addopts = ["-ra", "--cov=work_schedule_backend", "--cov-fail-under=70"]
