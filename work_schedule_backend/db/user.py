@@ -6,15 +6,14 @@ from work_schedule_backend.data_structures.user import UserResponse
 from work_schedule_backend.db.models import User
 
 
-def get_by_id(db: Session, user_id: int) -> Optional[User]:
-    return db.query(User).filter(User.id == user_id).first()
+def get_by_id(db: Session, user_id: int) -> Optional[UserResponse]:
+    user: Optional[UserResponse] = User._get_by_id(db, user_id)
+    if user:
+        return UserResponse(**user.__dict__)
 
 
 def get_by_search_param(db: Session, **filters) -> Sequence[UserResponse]:
-    filter_conditions = [
-        getattr(User, k).ilike(f"%{v}%") for k, v in filters.items() if v
-    ]
-    return db.query(User).filter(*filter_conditions).all()
+    return [UserResponse(**user.__dict__) for user in User._find(db, **filters)]
 
 
 def create(db: Session, user_data: dict) -> User:
@@ -40,9 +39,9 @@ def update(db: Session, user_id: int, user_data: dict) -> Optional[User]:
 
 
 def delete(db: Session, user_id: int) -> Optional[bool]:
-    db_user = get_by_id(db, user_id)
-    if not db_user:
+    user = User._get_by_id(db, user_id)
+    if not user:
         return None
-    db.delete(db_user)
+    db.delete(user)
     db.commit()
     return True

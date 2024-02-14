@@ -38,7 +38,7 @@ def _get_by_search_params(
 @router.put("/{user_id}", response_model=UserResponse)
 def _update_handler(
     user_id: int, user_update: UserUpdateInput, db: Session = Depends(get_db)
-):
+) -> UserResponse:
     return db_user.update(db, user_id, user_update.model_dump())
 
 
@@ -51,8 +51,8 @@ def _delete_user_handler(user_id: int, db: Session = Depends(get_db)) -> None:
 
 
 @router.get("/{user_id}", response_model=UserResponse)
-def _get_user(user_id: int, db: Session = Depends(get_db)):
-    cur_user = db_user.get_by_id(db, user_id)
+def _get_user(user_id: int, db: Session = Depends(get_db)) -> UserResponse:
+    cur_user: UserResponse = db_user.get_by_id(db, user_id)
     if not cur_user:
         raise HTTPException(status_code=404, detail="User not found")
-    return UserResponse(**cur_user.__dict__)
+    return cur_user
