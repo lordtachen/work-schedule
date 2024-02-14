@@ -6,15 +6,117 @@
       hashed_password: "hashed_pw_1"
       service_type: "Cook"
 
-
     - id: 2
       name: "Jane Doe"
       email: "jane.doe@example.com"
       hashed_password: "hashed_pw_2"
       service_type: "Waiter"
 
+    - id: 3
+      name: "Alice Smith"
+      email: "alice.smith@example.com"
+      hashed_password: "hashed_pw_3"
+      service_type: "Waiter"
 
-    # Add more users as needed...
+    - id: 4
+      name: "Bob Johnson"
+      email: "bob.johnson@example.com"
+      hashed_password: "hashed_pw_4"
+      service_type: "Waiter"
+
+    - id: 5
+      name: "Sarah Williams"
+      email: "sarah.williams@example.com"
+      hashed_password: "hashed_pw_5"
+      service_type: "Waiter"
+
+    - id: 6
+      name: "Michael Brown"
+      email: "michael.brown@example.com"
+      hashed_password: "hashed_pw_6"
+      service_type: "Cook"
+
+    - id: 7
+      name: "Emily Davis"
+      email: "emily.davis@example.com"
+      hashed_password: "hashed_pw_7"
+
+    - id: 8
+      name: "Daniel Wilson"
+      email: "daniel.wilson@example.com"
+      hashed_password: "hashed_pw_8"
+
+    - id: 9
+      name: "Olivia Taylor"
+      email: "olivia.taylor@example.com"
+      hashed_password: "hashed_pw_9"
+      service_type: "Waiter"
+
+    - id: 10
+      name: "James Anderson"
+      email: "james.anderson@example.com"
+      hashed_password: "hashed_pw_10"
+      service_type: "Cook"
+
+    - id: 11
+      name: "Sophia Martinez"
+      email: "sophia.martinez@example.com"
+      hashed_password: "hashed_pw_11"
+      service_type: "NoService"
+
+    - id: 12
+      name: "Benjamin Thompson"
+      email: "benjamin.thompson@example.com"
+      hashed_password: "hashed_pw_12"
+      service_type: "NoService"
+
+    - id: 13
+      name: "Ava Hernandez"
+      email: "ava.hernandez@example.com"
+      hashed_password: "hashed_pw_13"
+      service_type: "Waiter"
+
+    - id: 14
+      name: "William Garcia"
+      email: "william.garcia@example.com"
+      hashed_password: "hashed_pw_14"
+      service_type: "Cook"
+
+    - id: 15
+      name: "Mia Martinez"
+      email: "mia.martinez@example.com"
+      hashed_password: "hashed_pw_15"
+      service_type: "Cleaning"
+
+    - id: 16
+      name: "Ethan Thompson"
+      email: "ethan.thompson@example.com"
+      hashed_password: "hashed_pw_16"
+      service_type: "Cleaning"
+
+    - id: 17
+      name: "Isabella Hernandez"
+      email: "isabella.hernandez@example.com"
+      hashed_password: "hashed_pw_17"
+      service_type: "Waiter"
+
+    - id: 18
+      name: "Liam Garcia"
+      email: "liam.garcia@example.com"
+      hashed_password: "hashed_pw_18"
+      service_type: "Cook"
+
+    - id: 19
+      name: "Charlotte Davis"
+      email: "charlotte.davis@example.com"
+      hashed_password: "hashed_pw_19"
+      service_type: "Cleaning"
+
+    - id: 20
+      name: "Noah Wilson"
+      email: "noah.wilson@example.com"
+      hashed_password: "hashed_pw_20"
+      service_type: "Cleaning"
 
 - model: Permission
   data:

@@ -3,7 +3,9 @@ from fastapi.testclient import TestClient
 from sqlalchemy import StaticPool, create_engine
 from sqlalchemy.orm import sessionmaker
 
+from config import PROJECT_PATH
 from main import app
+from utils import yaml_to_sql
 from work_schedule_backend.db.core import Base, get_db
 
 # Setup the in-memory SQLite database for testing
@@ -41,3 +43,9 @@ def app_client(db_session):
         yield client
     finally:
         app.dependency_overrides.clear()
+
+
+@pytest.fixture(scope="function")
+def populated_db_session(db_session):
+    yaml_to_sql.load_data_from_yaml(db_session, PROJECT_PATH / "tests/mock_data")
+    yield db_session
