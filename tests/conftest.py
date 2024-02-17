@@ -22,7 +22,7 @@ TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engin
 
 
 # db session fixture
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def db_session():
     Base.metadata.create_all(bind=engine)
     try:
@@ -35,7 +35,7 @@ def db_session():
         Base.metadata.drop_all(bind=engine)
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def app_client(db_session):
     try:
         client = TestClient(app)
@@ -45,7 +45,7 @@ def app_client(db_session):
         app.dependency_overrides.clear()
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def populated_db_session(db_session):
     yaml_to_sql.load_data_from_yaml(db_session, PROJECT_PATH / "tests/mock_data")
-    yield db_session
+    return db_session

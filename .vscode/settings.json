@@ -1,5 +1,23 @@
 {
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "workbench.tree.indent": 20
+    "workbench.tree.indent": 20,
+
+"[python]":{
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.defaultFoldingRangeProvider": "charliermarsh.ruff",
+    "editor.formatOnType": true,
+},
+
+"files.exclude": {
+    "**/.git": true,
+    "__pycache__": true,
+    ".venv": true,
+    ".mypy_cache": true,
+    ".pytest_cache": true,
+    ".ruff_cache": true,
+
+},
+
 }
