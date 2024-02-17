@@ -24,7 +24,7 @@ jobs:
       run: poetry run pre-commit run --all-files
 
     - name: Run tests
-      run: pytest . --junitxml=pytest.xml | tee pytest-coverage.txt
+      run: poetry run pytest . --junitxml=pytest.xml | tee pytest-coverage.txt
 
     - name: Pytest coverage comment
       uses: MishaKav/pytest-coverage-comment@v1.1.51
