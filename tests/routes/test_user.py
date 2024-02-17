@@ -1,4 +1,4 @@
-from config import PROJECT_PATH
+from shared.config import PROJECT_PATH
 from utils import yaml_to_sql
 
 

@@ -1,0 +1,10 @@
+services:
+  work-schedule-backend:
+    image: alvaromatos/work-schedule:backend-0.1.0
+    build:
+      context: ./
+      dockerfile: work_schedule_backend/Dockerfile
+
+    ports:
+      - "8000:8000"
+    command: --host "0.0.0.0"
