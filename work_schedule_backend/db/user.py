@@ -1,4 +1,4 @@
-from typing import Optional, Sequence
+from typing import Any, Optional, Sequence
 
 from sqlalchemy.orm import Session
 
@@ -6,13 +6,17 @@ from work_schedule_backend.data_structures.user import UserResponse
 from work_schedule_backend.db.models import User
 
 
-def get_by_id(db: Session, user_id: int) -> Optional[UserResponse]:
+def get_by_id(db: Session, user_id: int) -> UserResponse | None:
     user: Optional[UserResponse] = User._get_by_id(db, user_id)
     if user:
         return UserResponse(**user.__dict__)
+    return None
 
 
-def get_by_search_param(db: Session, **filters) -> Sequence[UserResponse]:
+def get_by_search_param(
+    db: Session,
+    **filters: dict[str, Any],
+) -> Sequence[UserResponse]:
     return [UserResponse(**user.__dict__) for user in User._find(db, **filters)]
 
 
