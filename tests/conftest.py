@@ -3,10 +3,10 @@ from fastapi.testclient import TestClient
 from sqlalchemy import StaticPool, create_engine
 from sqlalchemy.orm import sessionmaker
 
-from config import PROJECT_PATH
-from main import app
+from shared.config import PROJECT_PATH
 from utils import yaml_to_sql
 from work_schedule_backend.db.core import Base, get_db
+from work_schedule_backend.main import app
 
 # Setup the in-memory SQLite database for testing
 DATABASE_URL = "sqlite:///:memory:"
