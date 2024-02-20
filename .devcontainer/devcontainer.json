@@ -36,11 +36,9 @@
 
 	// Use "forwardPorts" to make a list of ports inside the container available locally.
 	"forwardPorts": [8000],
-    // "postCreateCommand": [
-	// 	"poetry install",
-	// 	"poetry shell",
-	// 	"pre-commit install-hooks"
-	// ]
+    "postCreateCommand": [
+		"poetry run pre-commit install-hooks"
+	],
 	"postStartCommand": "echo $DOCKER_TOKEN | docker login -u $DOCKER_LOGIN --password-stdin"
 
 	// Use "postCreateCommand" to run commands after the container is created.
