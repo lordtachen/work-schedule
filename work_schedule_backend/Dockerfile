@@ -12,4 +12,4 @@ COPY --from=builder /work-schedule/dist/*.whl /
 RUN pip install --no-cache-dir /*.whl \
     && rm /*.whl
 EXPOSE 8000
-ENTRYPOINT ["uvicorn","work_schedule_backend.main:app"]
+ENTRYPOINT ["uvicorn","work_schedule_backend.main:app","--host","0.0.0.0"]

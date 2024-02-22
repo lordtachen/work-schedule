@@ -1,0 +1,9 @@
+config:
+  gcp:project: work-schedule-415021
+  gcp:region: us-central1
+  work-schedule:appPath: ../
+  work-schedule:concurrency: "50"
+  work-schedule:containerPort: "8000"
+  work-schedule:cpu: "1"
+  work-schedule:memory: 1Gi
+  work-schedule:imageName: gcr.io/work-schedule/work-schedule
