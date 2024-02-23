@@ -1,0 +1,22 @@
+name: Pulumi-Preview
+on:
+  - workflow_dispatch
+jobs:
+  pulumi-preview:
+    name: Preview
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.1
+      - uses: actions/setup-python@v5.0.0
+        with:
+            python-version: 3.12
+      - run: pip install -r deployment/requirements.txt
+      - name: docker login
+        run: gcloud auth configure-docker gcr.io
+      - uses: pulumi/actions@v3
+        with:
+          command: preview
+          stack-name: dev # When using an individual account, only use stack-name.
+        env:
+          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
