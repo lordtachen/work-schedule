@@ -1,0 +1,24 @@
+name: Pulumi-Destroy
+on:
+  - workflow_dispatch
+jobs:
+  pulumi-destroy:
+    name: Destroy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.1
+      - uses: actions/setup-python@v5.0.0
+        with:
+            python-version: 3.12
+      - run: pip install -r deployment/requirements.txt
+      - name: docker login
+        run: gcloud auth configure-docker gcr.io
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+      - uses: pulumi/actions@v3
+        with:
+          command: destroy
+          stack-name: dev # When using an individual account, only use stack-name.
+        env:
+          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
