@@ -11,12 +11,20 @@ jobs:
         with:
             python-version: 3.12
       - run: pip install -r deployment/requirements.txt
+      - name: gcloud login
+        run: |
+          echo $GOOGLE_CREDENTIALS > google_key.json
+          gcloud auth activate-service-account --key-file=google_key.json
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
       - name: docker login
-        run: gcloud auth configure-docker gcr.io
-      - uses: pulumi/actions@v3
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
+      - uses: pulumi/actions@v5.1.1
         with:
           command: up
-          stack-name: dev # When using an individual account, only use stack-name.
+          stack-name: dev
+          work-dir: deployment
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
