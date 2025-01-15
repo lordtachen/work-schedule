@@ -1,5 +1,6 @@
 import pathlib
-from typing import Any, Sequence
+from collections.abc import Sequence
+from typing import Any
 
 import yaml
 from sqlalchemy.orm import Session

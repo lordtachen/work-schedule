@@ -1,4 +1,5 @@
-from typing import Any, Optional, Sequence
+from collections.abc import Sequence
+from typing import Any
 
 from sqlalchemy.orm import Session
 
@@ -7,7 +8,7 @@ from work_schedule_backend.db.models import User
 
 
 def get_by_id(db: Session, user_id: int) -> UserResponse | None:
-    user: Optional[UserResponse] = User._get_by_id(db, user_id)
+    user: UserResponse | None = User._get_by_id(db, user_id)
     if user:
         return UserResponse(**user.__dict__)
     return None
@@ -29,7 +30,7 @@ def create(db: Session, user_data: dict) -> User:
     return db_user
 
 
-def update(db: Session, user_id: int, user_data: dict) -> Optional[User]:
+def update(db: Session, user_id: int, user_data: dict) -> User | None:
     db_user = get_by_id(db, user_id)
 
     if db_user:
@@ -42,7 +43,7 @@ def update(db: Session, user_id: int, user_data: dict) -> Optional[User]:
     return db_user
 
 
-def delete(db: Session, user_id: int) -> Optional[bool]:
+def delete(db: Session, user_id: int) -> bool | None:
     user = User._get_by_id(db, user_id)
     if not user:
         return None

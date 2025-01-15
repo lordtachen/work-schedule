@@ -1,4 +1,4 @@
-from typing import Optional, Sequence
+from collections.abc import Sequence
 
 from fastapi import APIRouter, Body, Depends, HTTPException, status
 from fastapi.params import Query
@@ -26,12 +26,12 @@ def _create_user(
 @router.get("")
 def _get_by_search_params(
     db: Session = Depends(get_db),
-    name: Optional[str] = Query(
+    name: str | None = Query(
         None,
         title="name parameter",
         description="Search by name",
     ),
-    email: Optional[str] = Query(
+    email: str | None = Query(
         None,
         title="Email parameter",
         description="Search by email",
