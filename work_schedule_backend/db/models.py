@@ -1,4 +1,5 @@
-from typing import Dict, Self, Sequence, Type
+from collections.abc import Sequence
+from typing import Self
 
 from sqlalchemy import Column, Enum, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.orm import Session, relationship
@@ -17,11 +18,11 @@ class InvalidFilterColumnError(Exception):
 
 class BaseExpansion:
     @classmethod
-    def _get_by_id(cls: Type[Self], session: Session, item_id: int) -> Self:
+    def _get_by_id(cls: type[Self], session: Session, item_id: int) -> Self:
         return session.query(cls).filter(cls.id == item_id).first()
 
     @classmethod
-    def _find(cls: Type[Self], session: Session, **filters: str) -> Sequence[Self]:
+    def _find(cls: type[Self], session: Session, **filters: str) -> Sequence[Self]:
         cls.validate_filters(filters)
         filter_conditions = [
             getattr(cls, k).ilike(f"%{v}%") for k, v in filters.items() if v
@@ -30,7 +31,7 @@ class BaseExpansion:
         return session.query(User).filter(*filter_conditions).all()
 
     @classmethod
-    def validate_filters(cls: Type[Self], filters: Dict[str, str]) -> None:
+    def validate_filters(cls: type[Self], filters: dict[str, str]) -> None:
         valid_columns = {c.key for c in cls.__table__.columns}
         filters_cols = set(filters.keys())
 

@@ -1,5 +1,4 @@
 import enum
-from typing import Optional
 
 from pydantic import BaseModel, EmailStr
 
@@ -22,11 +21,11 @@ class UserInput(BaseModel):
     name: str
     email: EmailStr
     password: str
-    service_type: Optional[ServiceType] = ServiceType.NoService
+    service_type: ServiceType | None = ServiceType.NoService
 
 
 class UserUpdateInput(BaseModel):
-    name: Optional[str] = None
-    email: Optional[EmailStr] = None
-    password: Optional[str] = None
-    service_type: Optional[ServiceType] = None
+    name: str | None = None
+    email: EmailStr | None = None
+    password: str | None = None
+    service_type: ServiceType | None = None
